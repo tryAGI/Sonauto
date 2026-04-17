@@ -1,0 +1,540 @@
+openapi: 3.0.3
+info:
+  title: Sonauto API
+  description: |
+    Sonauto (Melodia) API for fast AI song generation with lyrics. Generate full songs
+    with natural language prompts, tags, and optional lyrics. Streaming responses let
+    playback begin in ~15 seconds while the rest of the song continues to generate.
+    Includes v3 (streaming) and v2 (extend / inpaint) generation endpoints, status
+    polling, task retrieval, and credit balance.
+
+    No official OpenAPI spec is published; this document was manually compiled from
+    https://sonauto.ai/developers/docs.
+  version: "1.0.0"
+  contact:
+    name: Sonauto
+    url: https://sonauto.ai
+servers:
+  - url: https://api.sonauto.ai/v1
+    description: Production server
+security:
+  - BearerAuth: []
+paths:
+  /generations/v3:
+    post:
+      operationId: generateV3
+      summary: Generate a song (Melodia v3, streaming-capable)
+      description: |
+        Kicks off a v3 generation task. v3 supports streaming playback via the
+        separate streaming endpoint when `enable_streaming` is `true`.
+      tags:
+        - Generations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateV3Request"
+      responses:
+        "200":
+          description: Generation task was accepted.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskResponse"
+
+  /generations/v2:
+    post:
+      operationId: generateV2
+      summary: Generate a song (Melodia v2)
+      description: |
+        Kicks off a v2 generation task. v2 does not stream but supports `num_songs`,
+        `balance_strength`, `seed`, and BPM control.
+      tags:
+        - Generations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateV2Request"
+      responses:
+        "200":
+          description: Generation task was accepted.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskResponse"
+
+  /generations/v2/extend:
+    post:
+      operationId: extendV2
+      summary: Extend an existing song (v2)
+      description: Continues an existing audio clip by generating before or after it.
+      tags:
+        - Generations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExtendV2Request"
+      responses:
+        "200":
+          description: Extend task was accepted.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskResponse"
+
+  /generations/v2/inpaint:
+    post:
+      operationId: inpaintV2
+      summary: Inpaint a section of a song (v2)
+      description: Regenerates one or more sections of an existing clip.
+      tags:
+        - Generations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InpaintV2Request"
+      responses:
+        "200":
+          description: Inpaint task was accepted.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskResponse"
+
+  /generations/status/{task_id}:
+    get:
+      operationId: getGenerationStatus
+      summary: Get generation status
+      description: Returns the current status (e.g. PENDING, RUNNING, SUCCESS, FAILURE) for a task.
+      tags:
+        - Generations
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: The task identifier returned by a generation request.
+          schema:
+            type: string
+        - name: include_alignment
+          in: query
+          required: false
+          description: When true, response also includes the lyrics `alignment_status`.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: Task status.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: string
+                  - $ref: "#/components/schemas/GenerationStatus"
+
+  /generations/{task_id}:
+    get:
+      operationId: getGeneration
+      summary: Get a completed generation
+      description: Retrieves the full generation result, including song URLs, lyrics, and tags.
+      tags:
+        - Generations
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: The task identifier returned by a generation request.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Generation details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Generation"
+
+  /credits/balance:
+    get:
+      operationId: getCreditsBalance
+      summary: Get credit balance
+      description: Returns remaining subscription credits and pay-as-you-go credits.
+      tags:
+        - Credits
+      responses:
+        "200":
+          description: Current balance.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreditsBalance"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API key
+
+  schemas:
+    TaskResponse:
+      type: object
+      description: Envelope returned when a generation task is accepted.
+      required:
+        - task_id
+      properties:
+        task_id:
+          type: string
+          description: Identifier used with status/result endpoints.
+
+    GenerateV3Request:
+      type: object
+      description: Parameters for a Melodia v3 generation.
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+          description: Style descriptors (e.g. "rock", "uplifting"). Optional but recommended.
+        lyrics:
+          type: string
+          description: Song lyrics. Use `[verse]`, `[chorus]`, and other markers for structure.
+        prompt:
+          type: string
+          description: Natural language description of the desired song.
+        instrumental:
+          type: boolean
+          default: false
+          description: Generate an instrumental (no vocals).
+        prompt_strength:
+          type: number
+          format: float
+          default: 2.0
+          description: How closely the model should follow the prompt. Higher = stricter.
+        webhook_url:
+          type: string
+          format: uri
+          description: URL to POST the result to when the task completes.
+        output_format:
+          type: string
+          default: ogg
+          description: Output audio format (ogg, mp3, flac, wav, m4a).
+        output_bit_rate:
+          type: integer
+          description: Optional bit rate for the output file.
+        enable_streaming:
+          type: boolean
+          default: false
+          description: When true, the song can be streamed while still generating.
+        stream_format:
+          type: string
+          default: ogg
+          enum: [ogg, mp3]
+          description: Audio format used for streaming playback.
+        align_lyrics:
+          type: boolean
+          default: false
+          description: Include time-aligned lyrics in the result.
+
+    GenerateV2Request:
+      type: object
+      description: Parameters for a Melodia v2 generation.
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+        lyrics:
+          type: string
+        prompt:
+          type: string
+        instrumental:
+          type: boolean
+          default: false
+        prompt_strength:
+          type: number
+          format: float
+        balance_strength:
+          type: number
+          format: float
+          default: 0.7
+        seed:
+          type: integer
+          description: Deterministic seed.
+        webhook_url:
+          type: string
+          format: uri
+        num_songs:
+          type: integer
+          default: 1
+          description: Number of song variations to generate (v2 only).
+        output_format:
+          type: string
+          default: ogg
+        output_bit_rate:
+          type: integer
+        align_lyrics:
+          type: boolean
+          default: false
+        bpm:
+          description: Target BPM; use the string "auto" or an integer.
+          oneOf:
+            - type: integer
+            - type: string
+              enum: [auto]
+
+    ExtendV2Request:
+      type: object
+      description: Parameters for extending an existing song (v2).
+      required:
+        - side
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+        lyrics:
+          type: string
+        prompt:
+          type: string
+        instrumental:
+          type: boolean
+          default: false
+        prompt_strength:
+          type: number
+          format: float
+        balance_strength:
+          type: number
+          format: float
+          default: 0.7
+        seed:
+          type: integer
+        webhook_url:
+          type: string
+          format: uri
+        num_songs:
+          type: integer
+          default: 1
+        output_format:
+          type: string
+          default: ogg
+        output_bit_rate:
+          type: integer
+        align_lyrics:
+          type: boolean
+          default: false
+        audio_url:
+          type: string
+          format: uri
+          description: URL of the source audio. Either this or audio_base64 is required.
+        audio_base64:
+          type: string
+          description: Base64-encoded source audio. Either this or audio_url is required.
+        side:
+          type: string
+          enum: [left, right]
+          description: Which side of the source audio to extend.
+        extend_duration:
+          type: number
+          format: float
+          description: How many seconds to generate on the chosen side.
+        crop_duration:
+          type: number
+          format: float
+          default: 0.0
+          description: Seconds of source audio to drop from the chosen side before extending.
+
+    InpaintV2Request:
+      type: object
+      description: Parameters for inpainting sections of an existing song (v2).
+      required:
+        - lyrics
+        - sections
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+        lyrics:
+          type: string
+          description: Lyrics for the inpainted sections.
+        prompt:
+          type: string
+        instrumental:
+          type: boolean
+          default: false
+        prompt_strength:
+          type: number
+          format: float
+        balance_strength:
+          type: number
+          format: float
+          default: 0.7
+        seed:
+          type: integer
+        webhook_url:
+          type: string
+          format: uri
+        num_songs:
+          type: integer
+          default: 1
+        output_format:
+          type: string
+          default: ogg
+        output_bit_rate:
+          type: integer
+        align_lyrics:
+          type: boolean
+          default: false
+        audio_url:
+          type: string
+          format: uri
+        audio_base64:
+          type: string
+        sections:
+          type: array
+          description: List of [start_seconds, end_seconds] pairs to regenerate.
+          items:
+            type: array
+            items:
+              type: number
+              format: float
+            minItems: 2
+            maxItems: 2
+        selection_crop:
+          type: boolean
+          default: false
+          description: Crop the output to just the inpainted sections.
+
+    GenerationStatus:
+      type: object
+      description: Status payload when `include_alignment=true`.
+      properties:
+        status:
+          type: string
+          description: Generation status (e.g. PENDING, RUNNING, SUCCESS, FAILURE).
+        alignment_status:
+          type: string
+          nullable: true
+          description: Lyrics alignment status, or null if not applicable.
+
+    Generation:
+      type: object
+      description: Full details of a completed (or in-flight) generation task.
+      properties:
+        id:
+          type: string
+          description: Task UUID.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp.
+        status:
+          type: string
+        alignment_status:
+          type: string
+          nullable: true
+        model_version:
+          type: string
+          description: Model version used (e.g. "v2", "v3").
+        song_paths:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: CDN URLs for the generated songs. Expire after ~7 days.
+        error_message:
+          type: string
+          nullable: true
+        lyrics:
+          type: string
+        prompt:
+          type: string
+          nullable: true
+        prompt_strength:
+          type: number
+          format: float
+        tags:
+          type: array
+          items:
+            type: string
+        v2_params:
+          $ref: "#/components/schemas/V2Params"
+        inpaint_params:
+          $ref: "#/components/schemas/InpaintParams"
+        extend_params:
+          $ref: "#/components/schemas/ExtendParams"
+
+    V2Params:
+      type: object
+      description: v2-specific parameters echoed back for the generation.
+      properties:
+        balance_strength:
+          type: number
+          format: float
+        seed:
+          type: integer
+        bpm:
+          description: Target BPM; "auto", an integer, or null.
+          nullable: true
+          oneOf:
+            - type: integer
+            - type: string
+              enum: [auto]
+
+    InpaintParams:
+      type: object
+      description: Parameters echoed back for an inpaint generation.
+      properties:
+        sections:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+              format: float
+              minItems: 2
+              maxItems: 2
+        selection_crop:
+          type: boolean
+        audio_url:
+          type: string
+          format: uri
+        lyrics:
+          type: string
+
+    ExtendParams:
+      type: object
+      description: Parameters echoed back for an extend generation.
+      properties:
+        side:
+          type: string
+        crop_duration:
+          type: number
+          format: float
+        audio_url:
+          type: string
+          format: uri
+        duration:
+          type: number
+          format: float
+        lyrics:
+          type: string
+
+    CreditsBalance:
+      type: object
+      description: Remaining subscription and pay-as-you-go credits.
+      properties:
+        num_credits:
+          type: integer
+          description: Remaining subscription credits.
+        num_credits_payg:
+          type: integer
+          description: Remaining pay-as-you-go credits.
