@@ -135,7 +135,7 @@ namespace Sonauto
                 PrepareGetGenerationStatusRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    taskId: taskId,
+                    taskId: taskId!,
                     includeAlignment: includeAlignment);
 
                 return __httpRequest;
