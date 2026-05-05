@@ -21,6 +21,19 @@ namespace Sonauto
         /// Extend an existing song (v2)<br/>
         /// Continues an existing audio clip by generating before or after it.
         /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Sonauto.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::Sonauto.AutoSDKHttpResponse<global::Sonauto.TaskResponse>> ExtendV2AsResponseAsync(
+
+            global::Sonauto.ExtendV2Request request,
+            global::Sonauto.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Extend an existing song (v2)<br/>
+        /// Continues an existing audio clip by generating before or after it.
+        /// </summary>
         /// <param name="tags"></param>
         /// <param name="lyrics"></param>
         /// <param name="prompt"></param>

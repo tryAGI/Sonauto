@@ -23,6 +23,20 @@ namespace Sonauto
         /// Kicks off a v3 generation task. v3 supports streaming playback via the<br/>
         /// separate streaming endpoint when `enable_streaming` is `true`.
         /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Sonauto.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::Sonauto.AutoSDKHttpResponse<global::Sonauto.TaskResponse>> GenerateV3AsResponseAsync(
+
+            global::Sonauto.GenerateV3Request request,
+            global::Sonauto.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Generate a song (Melodia v3, streaming-capable)<br/>
+        /// Kicks off a v3 generation task. v3 supports streaming playback via the<br/>
+        /// separate streaming endpoint when `enable_streaming` is `true`.
+        /// </summary>
         /// <param name="tags">
         /// Style descriptors (e.g. "rock", "uplifting"). Optional but recommended.
         /// </param>
