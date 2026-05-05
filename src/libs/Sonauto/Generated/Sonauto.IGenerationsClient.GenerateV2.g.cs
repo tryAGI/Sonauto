@@ -23,6 +23,20 @@ namespace Sonauto
         /// Kicks off a v2 generation task. v2 does not stream but supports `num_songs`,<br/>
         /// `balance_strength`, `seed`, and BPM control.
         /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Sonauto.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::Sonauto.AutoSDKHttpResponse<global::Sonauto.TaskResponse>> GenerateV2AsResponseAsync(
+
+            global::Sonauto.GenerateV2Request request,
+            global::Sonauto.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Generate a song (Melodia v2)<br/>
+        /// Kicks off a v2 generation task. v2 does not stream but supports `num_songs`,<br/>
+        /// `balance_strength`, `seed`, and BPM control.
+        /// </summary>
         /// <param name="tags"></param>
         /// <param name="lyrics"></param>
         /// <param name="prompt"></param>
