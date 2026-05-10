@@ -60,5 +60,6 @@ namespace Sonauto
         public V2Params()
         {
         }
+
     }
 }

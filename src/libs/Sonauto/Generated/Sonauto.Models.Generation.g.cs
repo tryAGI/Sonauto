@@ -170,5 +170,6 @@ namespace Sonauto
         public Generation()
         {
         }
+
     }
 }
