@@ -66,5 +66,6 @@ namespace Sonauto
         public InpaintParams()
         {
         }
+
     }
 }

@@ -75,5 +75,6 @@ namespace Sonauto
         public ExtendParams()
         {
         }
+
     }
 }

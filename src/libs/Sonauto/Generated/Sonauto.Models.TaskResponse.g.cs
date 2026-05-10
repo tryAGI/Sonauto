@@ -42,5 +42,6 @@ namespace Sonauto
         public TaskResponse()
         {
         }
+
     }
 }
