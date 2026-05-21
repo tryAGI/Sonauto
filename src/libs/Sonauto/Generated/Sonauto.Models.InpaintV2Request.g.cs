@@ -194,5 +194,6 @@ namespace Sonauto
         public InpaintV2Request()
         {
         }
+
     }
 }

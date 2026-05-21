@@ -52,5 +52,6 @@ namespace Sonauto
         public CreditsBalance()
         {
         }
+
     }
 }
