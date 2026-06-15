@@ -145,17 +145,17 @@ separate streaming endpoint when `enable_streaming` is `true`.
                             RequestFile,
                             global::Sonauto.SourceGenerationContext.Default,
                             cancellationToken).ConfigureAwait(false);
-                        var tags = CliRuntime.WasSpecified(parseResult, Tags) ? parseResult.GetValue(Tags) : __requestBase is not null ? __requestBase.Tags : default;
-                        var lyrics = CliRuntime.WasSpecified(parseResult, Lyrics) ? parseResult.GetValue(Lyrics) : __requestBase is not null ? __requestBase.Lyrics : default;
-                        var prompt = CliRuntime.WasSpecified(parseResult, Prompt) ? parseResult.GetValue(Prompt) : __requestBase is not null ? __requestBase.Prompt : default;
-                        var instrumental = CliRuntime.WasSpecified(parseResult, Instrumental) ? parseResult.GetValue(Instrumental) : __requestBase is not null ? __requestBase.Instrumental : default;
-                        var promptStrength = CliRuntime.WasSpecified(parseResult, PromptStrength) ? parseResult.GetValue(PromptStrength) : __requestBase is not null ? __requestBase.PromptStrength : default;
-                        var webhookUrl = CliRuntime.WasSpecified(parseResult, WebhookUrl) ? parseResult.GetValue(WebhookUrl) : __requestBase is not null ? __requestBase.WebhookUrl : default;
-                        var outputFormat = CliRuntime.WasSpecified(parseResult, OutputFormat) ? parseResult.GetValue(OutputFormat) : __requestBase is not null ? __requestBase.OutputFormat : default;
-                        var outputBitRate = CliRuntime.WasSpecified(parseResult, OutputBitRate) ? parseResult.GetValue(OutputBitRate) : __requestBase is not null ? __requestBase.OutputBitRate : default;
-                        var enableStreaming = CliRuntime.WasSpecified(parseResult, EnableStreaming) ? parseResult.GetValue(EnableStreaming) : __requestBase is not null ? __requestBase.EnableStreaming : default;
-                        var streamFormat = CliRuntime.WasSpecified(parseResult, StreamFormat) ? parseResult.GetValue(StreamFormat) : __requestBase is not null ? __requestBase.StreamFormat : default;
-                        var alignLyrics = CliRuntime.WasSpecified(parseResult, AlignLyrics) ? parseResult.GetValue(AlignLyrics) : __requestBase is not null ? __requestBase.AlignLyrics : default;
+                        var tags = CliRuntime.WasSpecified(parseResult, Tags) ? parseResult.GetValue(Tags) : (__requestBase is { } __TagsBaseValue ? __TagsBaseValue.Tags : default);
+                        var lyrics = CliRuntime.WasSpecified(parseResult, Lyrics) ? parseResult.GetValue(Lyrics) : (__requestBase is { } __LyricsBaseValue ? __LyricsBaseValue.Lyrics : default);
+                        var prompt = CliRuntime.WasSpecified(parseResult, Prompt) ? parseResult.GetValue(Prompt) : (__requestBase is { } __PromptBaseValue ? __PromptBaseValue.Prompt : default);
+                        var instrumental = CliRuntime.WasSpecified(parseResult, Instrumental) ? parseResult.GetValue(Instrumental) : (__requestBase is { } __InstrumentalBaseValue ? __InstrumentalBaseValue.Instrumental : default);
+                        var promptStrength = CliRuntime.WasSpecified(parseResult, PromptStrength) ? parseResult.GetValue(PromptStrength) : (__requestBase is { } __PromptStrengthBaseValue ? __PromptStrengthBaseValue.PromptStrength : default);
+                        var webhookUrl = CliRuntime.WasSpecified(parseResult, WebhookUrl) ? parseResult.GetValue(WebhookUrl) : (__requestBase is { } __WebhookUrlBaseValue ? __WebhookUrlBaseValue.WebhookUrl : default);
+                        var outputFormat = CliRuntime.WasSpecified(parseResult, OutputFormat) ? parseResult.GetValue(OutputFormat) : (__requestBase is { } __OutputFormatBaseValue ? __OutputFormatBaseValue.OutputFormat : default);
+                        var outputBitRate = CliRuntime.WasSpecified(parseResult, OutputBitRate) ? parseResult.GetValue(OutputBitRate) : (__requestBase is { } __OutputBitRateBaseValue ? __OutputBitRateBaseValue.OutputBitRate : default);
+                        var enableStreaming = CliRuntime.WasSpecified(parseResult, EnableStreaming) ? parseResult.GetValue(EnableStreaming) : (__requestBase is { } __EnableStreamingBaseValue ? __EnableStreamingBaseValue.EnableStreaming : default);
+                        var streamFormat = CliRuntime.WasSpecified(parseResult, StreamFormat) ? parseResult.GetValue(StreamFormat) : (__requestBase is { } __StreamFormatBaseValue ? __StreamFormatBaseValue.StreamFormat : default);
+                        var alignLyrics = CliRuntime.WasSpecified(parseResult, AlignLyrics) ? parseResult.GetValue(AlignLyrics) : (__requestBase is { } __AlignLyricsBaseValue ? __AlignLyricsBaseValue.AlignLyrics : default);
                 using var client = await CliRuntime.CreateClientAsync(parseResult, cancellationToken).ConfigureAwait(false);
 
 
