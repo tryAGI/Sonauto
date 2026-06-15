@@ -40,6 +40,13 @@ using Sonauto;
 using var client = new SonautoClient(apiKey);
 ```
 
+### CLI
+
+```bash
+dotnet tool install --global Sonauto.CLI --prerelease
+sonauto api --help
+```
+
 <!-- EXAMPLES:START -->
 <!-- EXAMPLES:END -->
 
