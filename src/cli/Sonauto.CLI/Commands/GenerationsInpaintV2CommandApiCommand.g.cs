@@ -180,22 +180,22 @@ Regenerates one or more sections of an existing clip.");
                             RequestFile,
                             global::Sonauto.SourceGenerationContext.Default,
                             cancellationToken).ConfigureAwait(false);
-                        var tags = CliRuntime.WasSpecified(parseResult, Tags) ? parseResult.GetValue(Tags) : __requestBase is not null ? __requestBase.Tags : default;
+                        var tags = CliRuntime.WasSpecified(parseResult, Tags) ? parseResult.GetValue(Tags) : (__requestBase is { } __TagsBaseValue ? __TagsBaseValue.Tags : default);
                         var lyrics = parseResult.GetRequiredValue(Lyrics);
-                        var prompt = CliRuntime.WasSpecified(parseResult, Prompt) ? parseResult.GetValue(Prompt) : __requestBase is not null ? __requestBase.Prompt : default;
-                        var instrumental = CliRuntime.WasSpecified(parseResult, Instrumental) ? parseResult.GetValue(Instrumental) : __requestBase is not null ? __requestBase.Instrumental : default;
-                        var promptStrength = CliRuntime.WasSpecified(parseResult, PromptStrength) ? parseResult.GetValue(PromptStrength) : __requestBase is not null ? __requestBase.PromptStrength : default;
-                        var balanceStrength = CliRuntime.WasSpecified(parseResult, BalanceStrength) ? parseResult.GetValue(BalanceStrength) : __requestBase is not null ? __requestBase.BalanceStrength : default;
-                        var seed = CliRuntime.WasSpecified(parseResult, Seed) ? parseResult.GetValue(Seed) : __requestBase is not null ? __requestBase.Seed : default;
-                        var webhookUrl = CliRuntime.WasSpecified(parseResult, WebhookUrl) ? parseResult.GetValue(WebhookUrl) : __requestBase is not null ? __requestBase.WebhookUrl : default;
-                        var numSongs = CliRuntime.WasSpecified(parseResult, NumSongs) ? parseResult.GetValue(NumSongs) : __requestBase is not null ? __requestBase.NumSongs : default;
-                        var outputFormat = CliRuntime.WasSpecified(parseResult, OutputFormat) ? parseResult.GetValue(OutputFormat) : __requestBase is not null ? __requestBase.OutputFormat : default;
-                        var outputBitRate = CliRuntime.WasSpecified(parseResult, OutputBitRate) ? parseResult.GetValue(OutputBitRate) : __requestBase is not null ? __requestBase.OutputBitRate : default;
-                        var alignLyrics = CliRuntime.WasSpecified(parseResult, AlignLyrics) ? parseResult.GetValue(AlignLyrics) : __requestBase is not null ? __requestBase.AlignLyrics : default;
-                        var audioUrl = CliRuntime.WasSpecified(parseResult, AudioUrl) ? parseResult.GetValue(AudioUrl) : __requestBase is not null ? __requestBase.AudioUrl : default;
-                        var audioBase64 = CliRuntime.WasSpecified(parseResult, AudioBase64) ? parseResult.GetValue(AudioBase64) : __requestBase is not null ? __requestBase.AudioBase64 : default;
+                        var prompt = CliRuntime.WasSpecified(parseResult, Prompt) ? parseResult.GetValue(Prompt) : (__requestBase is { } __PromptBaseValue ? __PromptBaseValue.Prompt : default);
+                        var instrumental = CliRuntime.WasSpecified(parseResult, Instrumental) ? parseResult.GetValue(Instrumental) : (__requestBase is { } __InstrumentalBaseValue ? __InstrumentalBaseValue.Instrumental : default);
+                        var promptStrength = CliRuntime.WasSpecified(parseResult, PromptStrength) ? parseResult.GetValue(PromptStrength) : (__requestBase is { } __PromptStrengthBaseValue ? __PromptStrengthBaseValue.PromptStrength : default);
+                        var balanceStrength = CliRuntime.WasSpecified(parseResult, BalanceStrength) ? parseResult.GetValue(BalanceStrength) : (__requestBase is { } __BalanceStrengthBaseValue ? __BalanceStrengthBaseValue.BalanceStrength : default);
+                        var seed = CliRuntime.WasSpecified(parseResult, Seed) ? parseResult.GetValue(Seed) : (__requestBase is { } __SeedBaseValue ? __SeedBaseValue.Seed : default);
+                        var webhookUrl = CliRuntime.WasSpecified(parseResult, WebhookUrl) ? parseResult.GetValue(WebhookUrl) : (__requestBase is { } __WebhookUrlBaseValue ? __WebhookUrlBaseValue.WebhookUrl : default);
+                        var numSongs = CliRuntime.WasSpecified(parseResult, NumSongs) ? parseResult.GetValue(NumSongs) : (__requestBase is { } __NumSongsBaseValue ? __NumSongsBaseValue.NumSongs : default);
+                        var outputFormat = CliRuntime.WasSpecified(parseResult, OutputFormat) ? parseResult.GetValue(OutputFormat) : (__requestBase is { } __OutputFormatBaseValue ? __OutputFormatBaseValue.OutputFormat : default);
+                        var outputBitRate = CliRuntime.WasSpecified(parseResult, OutputBitRate) ? parseResult.GetValue(OutputBitRate) : (__requestBase is { } __OutputBitRateBaseValue ? __OutputBitRateBaseValue.OutputBitRate : default);
+                        var alignLyrics = CliRuntime.WasSpecified(parseResult, AlignLyrics) ? parseResult.GetValue(AlignLyrics) : (__requestBase is { } __AlignLyricsBaseValue ? __AlignLyricsBaseValue.AlignLyrics : default);
+                        var audioUrl = CliRuntime.WasSpecified(parseResult, AudioUrl) ? parseResult.GetValue(AudioUrl) : (__requestBase is { } __AudioUrlBaseValue ? __AudioUrlBaseValue.AudioUrl : default);
+                        var audioBase64 = CliRuntime.WasSpecified(parseResult, AudioBase64) ? parseResult.GetValue(AudioBase64) : (__requestBase is { } __AudioBase64BaseValue ? __AudioBase64BaseValue.AudioBase64 : default);
                         var sections = parseResult.GetRequiredValue(Sections);
-                        var selectionCrop = CliRuntime.WasSpecified(parseResult, SelectionCrop) ? parseResult.GetValue(SelectionCrop) : __requestBase is not null ? __requestBase.SelectionCrop : default;
+                        var selectionCrop = CliRuntime.WasSpecified(parseResult, SelectionCrop) ? parseResult.GetValue(SelectionCrop) : (__requestBase is { } __SelectionCropBaseValue ? __SelectionCropBaseValue.SelectionCrop : default);
                 using var client = await CliRuntime.CreateClientAsync(parseResult, cancellationToken).ConfigureAwait(false);
 
 
