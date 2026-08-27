@@ -4,12 +4,12 @@
 namespace Sonauto
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum V2ParamsBpm
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Auto,
     }

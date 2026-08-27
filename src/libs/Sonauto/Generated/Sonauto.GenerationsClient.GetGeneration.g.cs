@@ -134,7 +134,7 @@ namespace Sonauto
                          __authorization.Location == "Header")
                 {
                     __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
-                } 
+                }
             }
                 global::Sonauto.AutoSDKRequestOptionsSupport.ApplyHeaders(
                     request: __httpRequest,

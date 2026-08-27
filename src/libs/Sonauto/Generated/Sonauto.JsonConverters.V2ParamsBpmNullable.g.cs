@@ -20,7 +20,7 @@ namespace Sonauto.JsonConverters
                     {
                         return global::Sonauto.V2ParamsBpmExtensions.ToEnum(stringValue);
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:
