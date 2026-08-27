@@ -9,7 +9,7 @@ namespace Sonauto
     public sealed partial class InpaintV2Request
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("tags")]
         public global::System.Collections.Generic.IList<string>? Tags { get; set; }
@@ -22,7 +22,7 @@ namespace Sonauto
         public required string Lyrics { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt")]
         public string? Prompt { get; set; }
@@ -34,7 +34,7 @@ namespace Sonauto
         public bool? Instrumental { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt_strength")]
         public float? PromptStrength { get; set; }
@@ -46,13 +46,13 @@ namespace Sonauto
         public float? BalanceStrength { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("seed")]
         public int? Seed { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("webhook_url")]
         public string? WebhookUrl { get; set; }
@@ -70,7 +70,7 @@ namespace Sonauto
         public string? OutputFormat { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_bit_rate")]
         public int? OutputBitRate { get; set; }
@@ -82,13 +82,13 @@ namespace Sonauto
         public bool? AlignLyrics { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("audio_url")]
         public string? AudioUrl { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("audio_base64")]
         public string? AudioBase64 { get; set; }

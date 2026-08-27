@@ -10,11 +10,11 @@ namespace Sonauto
     public enum GenerateV3RequestStreamFormat
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Mp3,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Ogg,
     }

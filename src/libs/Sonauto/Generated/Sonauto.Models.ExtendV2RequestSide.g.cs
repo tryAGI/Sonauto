@@ -9,11 +9,11 @@ namespace Sonauto
     public enum ExtendV2RequestSide
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Left,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Right,
     }

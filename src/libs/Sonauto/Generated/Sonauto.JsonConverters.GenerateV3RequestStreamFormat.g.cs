@@ -20,7 +20,7 @@ namespace Sonauto.JsonConverters
                     {
                         return global::Sonauto.GenerateV3RequestStreamFormatExtensions.ToEnum(stringValue) ?? default;
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:
