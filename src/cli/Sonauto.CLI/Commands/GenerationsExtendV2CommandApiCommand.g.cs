@@ -142,6 +142,8 @@ internal static partial class GenerationsExtendV2CommandApiCommand
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"extend-v2", @"Extend an existing song (v2)
@@ -236,6 +238,7 @@ Continues an existing audio clip by generating before or after it.");
                                     FormatResponse,
                                     cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false));
+        CustomizeCommand(ref command);
         return command;
     }
 }

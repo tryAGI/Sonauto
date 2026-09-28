@@ -4,8 +4,10 @@ using System.CommandLine;
 
 namespace Sonauto.CLI.Commands;
 
-internal static class GenerationsApiGroupCommand
+internal static partial class GenerationsApiGroupCommand
 {
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"generations", @"Generations endpoint commands.");
@@ -15,6 +17,7 @@ internal static class GenerationsApiGroupCommand
                          command.Subcommands.Add(GenerationsGetGenerationCommandApiCommand.Create());
                          command.Subcommands.Add(GenerationsGetGenerationStatusCommandApiCommand.Create());
                          command.Subcommands.Add(GenerationsInpaintV2CommandApiCommand.Create());
+        CustomizeCommand(ref command);
         return command;
     }
 }
