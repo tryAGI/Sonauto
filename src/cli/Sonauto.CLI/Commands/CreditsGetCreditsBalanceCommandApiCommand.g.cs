@@ -29,6 +29,8 @@ internal static partial class CreditsGetCreditsBalanceCommandApiCommand
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"get-credits-balance", @"Get credit balance
@@ -55,6 +57,7 @@ Returns remaining subscription credits and pay-as-you-go credits.");
                                     FormatResponse,
                                     cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false));
+        CustomizeCommand(ref command);
         return command;
     }
 }

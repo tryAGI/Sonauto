@@ -37,6 +37,8 @@ internal static partial class GenerationsGetGenerationStatusCommandApiCommand
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"get-generation-status", @"Get generation status
@@ -66,6 +68,7 @@ Returns the current status (e.g. PENDING, RUNNING, SUCCESS, FAILURE) for a task.
                                     FormatResponse,
                                     cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false));
+        CustomizeCommand(ref command);
         return command;
     }
 }

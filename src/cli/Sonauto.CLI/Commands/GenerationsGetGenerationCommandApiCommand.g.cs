@@ -33,6 +33,8 @@ internal static partial class GenerationsGetGenerationCommandApiCommand
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"get-generation", @"Get a completed generation
@@ -59,6 +61,7 @@ Retrieves the full generation result, including song URLs, lyrics, and tags.");
                                     FormatResponse,
                                     cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false));
+        CustomizeCommand(ref command);
         return command;
     }
 }

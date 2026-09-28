@@ -117,6 +117,8 @@ internal static partial class GenerationsGenerateV2CommandApiCommand
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"generate-v2", @"Generate a song (Melodia v2)
@@ -201,6 +203,7 @@ Kicks off a v2 generation task. v2 does not stream but supports `num_songs`,
                                     FormatResponse,
                                     cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false));
+        CustomizeCommand(ref command);
         return command;
     }
 }

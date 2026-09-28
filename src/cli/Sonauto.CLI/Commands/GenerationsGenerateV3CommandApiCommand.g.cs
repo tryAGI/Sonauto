@@ -103,6 +103,8 @@ internal static partial class GenerationsGenerateV3CommandApiCommand
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"generate-v3", @"Generate a song (Melodia v3, streaming-capable)
@@ -181,6 +183,7 @@ separate streaming endpoint when `enable_streaming` is `true`.
                                     FormatResponse,
                                     cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false));
+        CustomizeCommand(ref command);
         return command;
     }
 }

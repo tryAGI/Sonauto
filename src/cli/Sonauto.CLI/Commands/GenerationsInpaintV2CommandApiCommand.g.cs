@@ -135,6 +135,8 @@ internal static partial class GenerationsInpaintV2CommandApiCommand
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"inpaint-v2", @"Inpaint a section of a song (v2)
@@ -226,6 +228,7 @@ Regenerates one or more sections of an existing clip.");
                                     FormatResponse,
                                     cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false));
+        CustomizeCommand(ref command);
         return command;
     }
 }
