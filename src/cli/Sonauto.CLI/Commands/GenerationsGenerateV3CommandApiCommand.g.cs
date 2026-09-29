@@ -105,9 +105,9 @@ internal static partial class GenerationsGenerateV3CommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"generate-v3", @"Generate a song (Melodia v3, streaming-capable)
+        var command = new Command(commandName ?? @"generate-v3", @"Generate a song (Melodia v3, streaming-capable)
 Kicks off a v3 generation task. v3 supports streaming playback via the
 separate streaming endpoint when `enable_streaming` is `true`.
 ");

@@ -31,9 +31,9 @@ internal static partial class CreditsGetCreditsBalanceCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"get-credits-balance", @"Get credit balance
+        var command = new Command(commandName ?? @"get-credits-balance", @"Get credit balance
 Returns remaining subscription credits and pay-as-you-go credits.");
 
 
