@@ -119,9 +119,9 @@ internal static partial class GenerationsGenerateV2CommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"generate-v2", @"Generate a song (Melodia v2)
+        var command = new Command(commandName ?? @"generate-v2", @"Generate a song (Melodia v2)
 Kicks off a v2 generation task. v2 does not stream but supports `num_songs`,
 `balance_strength`, `seed`, and BPM control.
 ");

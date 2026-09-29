@@ -39,9 +39,9 @@ internal static partial class GenerationsGetGenerationStatusCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"get-generation-status", @"Get generation status
+        var command = new Command(commandName ?? @"get-generation-status", @"Get generation status
 Returns the current status (e.g. PENDING, RUNNING, SUCCESS, FAILURE) for a task.");
                         command.Arguments.Add(TaskId);
                         command.Options.Add(IncludeAlignment);

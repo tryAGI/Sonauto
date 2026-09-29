@@ -144,9 +144,9 @@ internal static partial class GenerationsExtendV2CommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"extend-v2", @"Extend an existing song (v2)
+        var command = new Command(commandName ?? @"extend-v2", @"Extend an existing song (v2)
 Continues an existing audio clip by generating before or after it.");
                         command.Options.Add(Tags);
                         command.Options.Add(Lyrics);

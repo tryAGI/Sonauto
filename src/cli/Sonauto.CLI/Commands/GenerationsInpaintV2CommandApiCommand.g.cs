@@ -137,9 +137,9 @@ internal static partial class GenerationsInpaintV2CommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"inpaint-v2", @"Inpaint a section of a song (v2)
+        var command = new Command(commandName ?? @"inpaint-v2", @"Inpaint a section of a song (v2)
 Regenerates one or more sections of an existing clip.");
                         command.Options.Add(Tags);
                         command.Options.Add(Lyrics);

@@ -35,9 +35,9 @@ internal static partial class GenerationsGetGenerationCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"get-generation", @"Get a completed generation
+        var command = new Command(commandName ?? @"get-generation", @"Get a completed generation
 Retrieves the full generation result, including song URLs, lyrics, and tags.");
                         command.Arguments.Add(TaskId);
 
