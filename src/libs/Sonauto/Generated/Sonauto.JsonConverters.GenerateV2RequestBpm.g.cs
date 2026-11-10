@@ -18,7 +18,7 @@ namespace Sonauto.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::Sonauto.GenerateV2RequestBpmExtensions.ToEnum(stringValue) ?? default;
+                        return global::Sonauto.GenerateV2RequestBpmExtensions.ToEnum(stringValue) ?? throw new global::System.Text.Json.JsonException($"Unknown value '{stringValue}' for global::Sonauto.GenerateV2RequestBpm.");
                     }
 
                     break;
